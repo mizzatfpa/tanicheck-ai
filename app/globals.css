@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f4f7ee;
+  --foreground: #171a15;
+  --warm-white: #fefffb;
+  --leaf-mist: #f0f7ec;
+  --primary: #006214;
+  --primary-container: #137d22;
+  --primary-light: #1e9a32;
+  --soil-gray: #555a50;
+  --muted-soil: #8b9186;
+  --outline-variant: #becab8;
+  --border-soft: #ecefe8;
+  --caution-mist: #fff6e3;
+  --ripe-blush: #fff0ea;
+  --amber-warning: #a86f11;
+  --ripe-alert: #d94e1f;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-nunito-sans);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-nunito-sans), sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(50%);
+  }
+}
+
+@keyframes soft-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.82;
+  }
+}
+
+@keyframes ring-fill {
+  from {
+    stroke-dashoffset: 276.46;
+  }
+  to {
+    stroke-dashoffset: 58;
+  }
+}
