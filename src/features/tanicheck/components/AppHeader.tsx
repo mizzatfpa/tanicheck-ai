@@ -1,4 +1,4 @@
-import { Camera, ImageUp, Leaf } from "lucide-react";
+import { Camera, ImageUp } from "lucide-react";
 import type { ReactNode } from "react";
 
 export function AppHeader({
@@ -14,7 +14,7 @@ export function AppHeader({
     <header className="sticky top-0 z-40 border-b border-[rgba(190,202,184,0.45)] bg-[#f6fbef]/95 backdrop-blur-md">
       <div className="mx-auto flex min-h-[72px] w-full max-w-[1120px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <button className="flex items-center gap-2 text-left text-[var(--primary)]" type="button" onClick={onGoHome}>
-          <Leaf className="h-8 w-8 fill-current stroke-[2.25]" aria-hidden="true" />
+          <LeafMark className="h-8 w-8" />
           <span>
             <span className="block text-[24px] font-bold leading-[1.05]">TaniCheck</span>
             <span className="hidden text-[12px] font-semibold leading-[1.35] text-[var(--secondary)] sm:block">
@@ -32,6 +32,30 @@ export function AppHeader({
         </div>
       </div>
     </header>
+  );
+}
+
+function LeafMark({ className }: { className: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      className={className}
+      fill="none"
+      viewBox="20 18 62 60"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M 33 72
+           C 25 45, 42 22, 77 23
+           C 76 50, 58 75, 33 72 Z
+           M 33 72
+           Q 53 55, 73 40"
+        stroke="#0d5c1a"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="5"
+      />
+    </svg>
   );
 }
 

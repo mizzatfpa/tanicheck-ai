@@ -13,6 +13,11 @@ export const metadata: Metadata = {
   title: "TaniCheck",
   description:
     "Aplikasi AI untuk mengecek kualitas tomat dari foto dan menghitung rekomendasi harga tawar.",
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
 };
 
 export default function RootLayout({
