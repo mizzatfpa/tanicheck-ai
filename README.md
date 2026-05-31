@@ -56,7 +56,7 @@ TaniCheck mencoba menjembatani masalah tersebut dengan alur sederhana:
 | Styling | Tailwind CSS | Utility-first styling untuk membangun UI responsif dengan cepat. |
 | AI Runtime | TensorFlow.js | Menjalankan model machine learning langsung di browser. |
 | Model Helper | `@teachablemachine/image` | Memuat model Teachable Machine dan melakukan prediksi gambar. |
-| Icon | Lucide React | Ikon ringan dan konsisten untuk UI. |
+| Icon | Lucide React + SVG custom | Lucide dipakai untuk ikon UI, sedangkan logo daun TaniCheck memakai SVG custom. |
 | Deployment | Vercel | Platform deployment yang terintegrasi baik dengan Next.js. |
 
 ## Alasan Pemilihan Teknologi
@@ -171,9 +171,32 @@ stateDiagram-v2
 ```text
 .
 |-- app/
-|   |-- page.tsx          # Halaman utama dan seluruh alur aplikasi
+|   |-- page.tsx          # Route utama / yang me-render TaniCheckPage
 |   |-- layout.tsx        # Layout root Next.js
+|   |-- icon.svg          # Favicon/logo daun TaniCheck
 |   `-- globals.css       # Token warna, font, dan animasi global
+|-- src/
+|   `-- features/
+|       `-- tanicheck/
+|           |-- TaniCheckPage.tsx      # State utama dan orchestration flow aplikasi
+|           |-- constants.ts           # Konstanta model, batas file, label, dan langkah analisis
+|           |-- types.ts               # Type untuk state, prediksi, tone, model, dan hasil harga
+|           |-- components/
+|           |   |-- AppHeader.tsx
+|           |   |-- AppShell.tsx
+|           |   |-- BottomNav.tsx
+|           |   |-- HomeScreen.tsx
+|           |   |-- CameraScreen.tsx
+|           |   |-- PhotoSelectedScreen.tsx
+|           |   |-- AnalysisScreen.tsx
+|           |   |-- ResultScreen.tsx
+|           |   |-- ErrorScreen.tsx
+|           |   `-- shared-ui.tsx
+|           `-- lib/
+|               |-- formatting.ts       # Format Rupiah, persen, dan teks pesan
+|               |-- model.ts            # Load model dan gambar prediksi
+|               |-- pricing.ts          # Kalkulasi harga, risiko, grade, dan label prediksi
+|               `-- validation.ts       # Validasi file gambar dan input transaksi
 |-- public/
 |   `-- model/
 |       `-- tomato/
@@ -358,12 +381,15 @@ Prioritas teknis berikutnya:
 
 ## Catatan Pengembangan
 
-Beberapa bagian kode penting berada di `app/page.tsx`:
+Route utama tetap berada di `app/page.tsx`, tetapi file tersebut hanya menjadi entry point untuk halaman `/`. Kode aplikasi TaniCheck sudah dipisah ke `src/features/tanicheck/` agar state flow, komponen UI, dan fungsi domain lebih mudah dirawat.
 
-- `loadModelOnce`: memuat TensorFlow.js dan model Teachable Machine.
-- `startAnalysis`: menjalankan validasi, loading model, prediksi, dan pembuatan hasil.
-- `buildPriceDecision`: mengubah probabilitas model menjadi risiko, grade, dan rekomendasi harga.
-- `copyNegotiationMessage`: menyalin pesan negosiasi dengan fallback jika Clipboard API dibatasi.
+Beberapa bagian kode penting:
+
+- `src/features/tanicheck/TaniCheckPage.tsx`: mengelola state utama, kamera, upload foto, alur analisis, reset, dan copy pesan negosiasi.
+- `src/features/tanicheck/lib/model.ts`: memuat TensorFlow.js, model Teachable Machine, dan gambar prediksi.
+- `src/features/tanicheck/lib/pricing.ts`: mengubah probabilitas model menjadi risiko, grade, dan rekomendasi harga.
+- `src/features/tanicheck/lib/validation.ts`: memvalidasi file gambar, harga pasar, jumlah beli, dan lokasi pasar.
+- `src/features/tanicheck/components/`: berisi screen dan komponen UI untuk home, kamera, preview foto, proses analisis, hasil, error, header, dan navigasi bawah.
 
 ## Lisensi
 
